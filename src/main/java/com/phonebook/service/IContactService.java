@@ -11,7 +11,7 @@ public interface IContactService {
 	
 	public List<Contact> getAllContacts();
 	
-	public Optional<Contact> getContactById(Integer contactId);
+	public Contact getContactById(Integer contactId);
 	
 	public String updateContact(Contact contact);
 	

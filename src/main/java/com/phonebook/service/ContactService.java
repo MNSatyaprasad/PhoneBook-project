@@ -17,8 +17,13 @@ public class ContactService implements IContactService{
 	
 	@Override
 	public String saveContact(Contact contact) {
-		contactRepo.save(contact);
-		return "Contact Saved sucessfully";
+		contact = contactRepo.save(contact);
+		if(contact.getContactId()!= null) {
+			return "Contact Saved sucessfully"; 
+		}else {
+			return "Contact failed to Save";
+		}
+	
 	}
 
 	@Override
@@ -28,21 +33,36 @@ public class ContactService implements IContactService{
 	}
 
 	@Override
-	public Optional<Contact> getContactById(Integer contactId) {
-		 Optional<Contact> contact = contactRepo.findById(contactId);
-		return contact;
+	public Contact getContactById(Integer contactId) {
+		 Optional<Contact> finByid = contactRepo.findById(contactId);
+		 
+		 if(finByid.isPresent()) {
+			 return finByid.get();
+		 }
+		return null;
 	}
 
 	@Override
 	public String updateContact(Contact contact) {
-		Contact UpdateContact =contactRepo.save(contact);
-		return UpdateContact+"Updated SucessFully";
+	
+		if(contactRepo.existsById(contact.getContactId())) {
+			contactRepo.save(contact);
+			return "Updated Sucessfully";
+		}else {
+			return "No Record Found";
+		}
+		
 	}
 
 	@Override
 	public String deletecontactById(Integer contactId) {
-		 contactRepo.deleteById(contactId);
-		return "deletecContact SucessFully";
+		if(contactRepo.existsById(contactId)) {
+			contactRepo.deleteById(contactId);
+			return "Record Deleted Sucessfully";
+		}else {
+			return "No Record Found";
+		}
+		
 	}
 
 }
