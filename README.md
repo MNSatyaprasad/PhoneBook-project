@@ -1,5 +1,4 @@
 # PhoneBook-project
-PhoneBook project
 ============
 Mini Projects
 ============
